@@ -1,0 +1,60 @@
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+.idea
+# Build Results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if using NuGet 2.x or 3.x with packages.config
+# **/packages/*
+# !**/packages/build/
+# !**/packages/Microsoft.SqlServer.Types/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Windows image caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on separate drives
+$RECYCLE.BIN/
+
+# VS Code
+.vscode/
+
+# Local settings
+appsettings.Development.json
+appsettings.Local.json
+*.env
+
+# Others
+*.log
+*.tmp
+*.bak
+
+k8s/secret.yaml
+k8s/secret.*.yaml
+!k8s/secret.example.yaml
