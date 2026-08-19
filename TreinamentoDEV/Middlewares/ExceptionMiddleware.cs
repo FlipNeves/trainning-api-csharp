@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Domain.Exceptions;
 
 namespace TreinamentoDEV.Middlewares
 {
@@ -18,6 +19,12 @@ namespace TreinamentoDEV.Middlewares
             try
             {
                 await _next(context);
+            }
+            catch (DomainException ex)
+            {
+                var resposta = RespostaDTO.BadRequest<object>(ex.Message);
+                context.Response.StatusCode = resposta.StatusCode;
+                await context.Response.WriteAsJsonAsync(resposta);
             }
             catch (Exception ex)
             {

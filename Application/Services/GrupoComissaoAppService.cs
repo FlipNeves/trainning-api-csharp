@@ -5,17 +5,17 @@ using Domain.Repositories;
 
 namespace Application.Services
 {
-    public class GrupoComissaoService : IGrupoComissaoService
+    public class GrupoComissaoAppService : IGrupoComissaoAppService
     {
-        private IGrupoComissaoRepository _repository;
+        private readonly IGrupoComissaoRepository _repository;
 
-        public GrupoComissaoService(IGrupoComissaoRepository grupoComissaoRepository)
+        public GrupoComissaoAppService(IGrupoComissaoRepository grupoComissaoRepository)
         {
             _repository = grupoComissaoRepository;
         }
 
         private static GrupoComissaoDTO MapToDTO(GrupoComissao x)
-            => new GrupoComissaoDTO { Codigo = x.Codigo, Descricao = x.Descricao };
+            => new() { Codigo = x.Codigo, Descricao = x.Descricao };
 
         public async Task<RespostaDTO<GrupoComissaoDTO>> GetByIdAsync(int codigo)
         {
@@ -27,9 +27,6 @@ namespace Application.Services
 
         public async Task<RespostaDTO<GrupoComissaoDTO>> NovoRegistroAsync(string descricao)
         {
-            if (string.IsNullOrWhiteSpace(descricao))
-                return RespostaDTO.BadRequest<GrupoComissaoDTO>("Descrição é obrigatória.");
-
             var novoGrupo = await _repository.AddAsync(new GrupoComissao(descricao));
             await _repository.SaveChangesAsync();
             return RespostaDTO.Created(MapToDTO(novoGrupo));
@@ -37,14 +34,11 @@ namespace Application.Services
 
         public async Task<RespostaDTO<GrupoComissaoDTO>> AlterarRegistroAsync(int codigo, string descricao)
         {
-            if (string.IsNullOrWhiteSpace(descricao))
-                return RespostaDTO.BadRequest<GrupoComissaoDTO>("Descrição é obrigatória.");
-
             var grupo = await _repository.GetAsync(codigo);
             if (grupo == null)
                 return RespostaDTO.NotFound<GrupoComissaoDTO>();
 
-            grupo.Descricao = descricao;
+            grupo.AlterarDescricao(descricao);
             _repository.Update(grupo);
             await _repository.SaveChangesAsync();
             return RespostaDTO.Sucesso(MapToDTO(grupo));

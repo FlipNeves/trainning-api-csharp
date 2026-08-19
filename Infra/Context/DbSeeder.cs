@@ -8,17 +8,21 @@ namespace Infra.Context
         {
             if (context.GruposComissao.Any()) return;
 
-            context.GruposComissao.AddRange(
-                new GrupoComissao("Comissão Padrão"),
-                new GrupoComissao("Comissão Especial"));
+            var comissaoPadrao = new GrupoComissao("Comissão Padrão");
+            comissaoPadrao.DefinirPercentual(5m);
+            var comissaoEspecial = new GrupoComissao("Comissão Especial");
+            comissaoEspecial.DefinirPercentual(10m);
+            context.GruposComissao.AddRange(comissaoPadrao, comissaoEspecial);
 
             context.GruposCompra.AddRange(
                 new GrupoCompra("Compra Direta"),
                 new GrupoCompra("Compra Programada"));
 
-            context.GruposDesconto.AddRange(
-                new GrupoDesconto("Desconto Promocional"),
-                new GrupoDesconto("Desconto Progressivo"));
+            var descontoPromocional = new GrupoDesconto("Desconto Promocional");
+            descontoPromocional.DefinirPercentual(8m);
+            var descontoProgressivo = new GrupoDesconto("Desconto Progressivo");
+            descontoProgressivo.DefinirPercentual(15m);
+            context.GruposDesconto.AddRange(descontoPromocional, descontoProgressivo);
 
             context.SaveChanges();
         }

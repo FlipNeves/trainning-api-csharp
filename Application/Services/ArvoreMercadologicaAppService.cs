@@ -6,9 +6,9 @@ namespace Application.Services
 {
     public class ArvoreMercadologicaAppService : IArvoreMercadologicaAppService
     {
-        private IGrupoComissaoRepository _grupoComissaoRepository;
-        private IGrupoCompraRepository _grupoCompraRepository;
-        private IGrupoDescontoRepository _grupoDescontoRepository;
+        private readonly IGrupoComissaoRepository _grupoComissaoRepository;
+        private readonly IGrupoCompraRepository _grupoCompraRepository;
+        private readonly IGrupoDescontoRepository _grupoDescontoRepository;
 
         public ArvoreMercadologicaAppService(
             IGrupoComissaoRepository grupoComissaoRepository,

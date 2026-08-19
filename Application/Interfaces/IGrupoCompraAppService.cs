@@ -2,7 +2,7 @@ using Application.DTOs;
 
 namespace Application.Interfaces
 {
-    public interface IGrupoCompraService
+    public interface IGrupoCompraAppService
     {
         public Task<RespostaDTO<GrupoCompraDTO>> GetByIdAsync(int codigo);
         public Task<RespostaDTO<GrupoCompraDTO>> NovoRegistroAsync(string descricao);

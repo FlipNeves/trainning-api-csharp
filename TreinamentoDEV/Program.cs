@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Repositories;
+using Domain.Services;
 using Infra.Context;
 using Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +20,13 @@ builder.Services.AddScoped<IGrupoComissaoRepository, GrupoComissaoRepository>();
 builder.Services.AddScoped<IGrupoCompraRepository, GrupoCompraRepository>();
 builder.Services.AddScoped<IGrupoDescontoRepository, GrupoDescontoRepository>();
 
-builder.Services.AddScoped<IGrupoComissaoService, GrupoComissaoService>();
-builder.Services.AddScoped<IGrupoCompraService, GrupoCompraService>();
-builder.Services.AddScoped<IGrupoDescontoService, GrupoDescontoService>();
+builder.Services.AddScoped<IGrupoComissaoAppService, GrupoComissaoAppService>();
+builder.Services.AddScoped<IGrupoCompraAppService, GrupoCompraAppService>();
+builder.Services.AddScoped<IGrupoDescontoAppService, GrupoDescontoAppService>();
 builder.Services.AddScoped<IArvoreMercadologicaAppService, ArvoreMercadologicaAppService>();
+builder.Services.AddScoped<ISimulacaoComissaoAppService, SimulacaoComissaoAppService>();
+
+builder.Services.AddSingleton<ICalculoComissaoService, CalculoComissaoService>();
 
 var app = builder.Build();
 
